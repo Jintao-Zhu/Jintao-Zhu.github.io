@@ -1,15 +1,296 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Jintao Zhu's Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jintao Zhu | Developer & Creator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #222; color: #fff; }
-        h1 { color: #4CAF50; }
+        :root {
+            --bg-color: #0a0a0a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #888888;
+            --accent-gold: #D4AF37;
+            /* 香槟金 */
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 优雅的排版 */
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            /* 衬线体显高级 */
+            font-weight: 400;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* 布局容器 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 顶部导航 */
+        nav {
+            padding: 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            margin-left: 30px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero 区域 */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 1px solid var(--text-secondary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+
+        /* 作品集网格 - 玻璃拟态 */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .card {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-gold);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .tags span {
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 简单的入场动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <h1>Hello World!</h1>
-    <p>This is Jintao Zhu's personal website.</p>
-    <p>🚧 Under Construction 🚧</p>
+
+    <div class="container">
+        <nav>
+            <div class="logo">JINTAO.</div>
+            <div class="nav-links">
+                <a href="#work">Work</a>
+                <a href="#about">About</a>
+                <a href="mailto:your-email@example.com">Contact</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p
+                style="color: var(--accent-gold); font-family: 'Inter'; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">
+                Hello, World.</p>
+            <h1>Designing the <br>Future of Code.</h1>
+            <p>I am Jintao Zhu, a software engineer specializing in building exceptional digital experiences with clean
+                architecture.</p>
+            <div>
+                <a href="https://github.com/Jintao-Zhu" class="btn">View Github</a>
+            </div>
+        </section>
+
+        <section id="work">
+            <h2 class="section-title">Selected Works</h2>
+            <div class="grid">
+                <article class="card">
+                    <h3>Enterprise SaaS</h3>
+                    <p>A scalable cloud architecture solution handling high concurrency for global enterprise clients.
+                    </p>
+                    <div class="tags">
+                        <span>Java</span>
+                        <span>Spring Boot</span>
+                        <span>Microservices</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3>Algo Trading Bot</h3>
+                    <p>Automated high-frequency trading system with low latency optimization.</p>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>C++</span>
+                        <span>Docker</span>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <h3>Modern Dashboard</h3>
+                    <p>Interactive data visualization dashboard for real-time analytics.</p>
+                    <div class="tags">
+                        <span>React</span>
+                        <span>D3.js</span>
+                        <span>TypeScript</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="about" style="margin-bottom: 100px;">
+            <h2 class="section-title">Philosophy</h2>
+            <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 700px;">
+                I believe that code is not just about function, but about <b>craftsmanship</b>.
+                <br><br>
+                Whether it's optimizing a database query or polishing a UI animation, I strive for elegance in every
+                layer of the stack.
+            </p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Jintao Zhu. All rights reserved.</p>
+            <div style="margin-top: 20px; font-size: 1.2rem;">
+                <a href="https://github.com/Jintao-Zhu" style="margin: 0 10px;"><i class="fab fa-github"></i></a>
+                <a href="#" style="margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
+                <a href="#" style="margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+            </div>
+        </footer>
+    </div>
+
 </body>
+
 </html>
