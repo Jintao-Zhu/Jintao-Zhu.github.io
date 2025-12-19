@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jintao Zhu | Developer & Creator</title>
+    <title>Jintao Zhu | 个人主页</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --text-primary: #e0e0e0;
-            --text-secondary: #888888;
-            --accent-gold: #D4AF37;
-            /* 香槟金 */
-            --glass: rgba(255, 255, 255, 0.05);
+            --primary-color: #2563eb;
+            /* 科技蓝 */
+            --text-main: #1f2937;
+            /* 深灰黑 */
+            --text-secondary: #6b7280;
+            /* 浅灰 */
+            --bg-body: #f3f4f6;
+            /* 背景浅灰 */
+            --bg-card: #ffffff;
+            /* 卡片纯白 */
+            --border-color: #e5e7eb;
         }
 
         * {
@@ -29,183 +34,238 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* 优雅的排版 */
-        h1,
-        h2,
-        h3 {
-            font-family: 'Playfair Display', serif;
-            /* 衬线体显高级 */
-            font-weight: 400;
         }
 
         a {
             text-decoration: none;
             color: inherit;
-            transition: 0.3s;
-        }
-
-        ul {
-            list-style: none;
+            transition: 0.2s;
         }
 
         /* 布局容器 */
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 40px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            /* 左侧300px，右侧自适应 */
+            gap: 30px;
         }
 
-        /* 顶部导航 */
-        nav {
-            padding: 40px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* 左侧个人信息卡片 */
+        .profile-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            /* 桌面端吸顶效果 */
+            top: 40px;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ddd;
+            /* 头像占位色 */
         }
 
-        .nav-links a {
-            margin-left: 30px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+        .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-main);
         }
 
-        .nav-links a:hover {
-            color: var(--accent-gold);
+        .title {
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
-        /* Hero 区域 */
-        .hero {
-            height: 80vh;
+        .contact-info {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            animation: fadeIn 1.5s ease-out;
+            gap: 12px;
+            margin-top: 20px;
+            text-align: left;
         }
 
-        .hero h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
+        .contact-item {
+            display: flex;
+            align-items: center;
             color: var(--text-secondary);
-            max-width: 500px;
-            margin-bottom: 40px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border: 1px solid var(--text-secondary);
-            border-radius: 50px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #f9fafb;
         }
 
-        .btn:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-            transform: translateY(-3px);
+        .contact-item:hover {
+            background: #eff6ff;
+            color: var(--primary-color);
         }
 
-        /* 作品集网格 - 玻璃拟态 */
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            border-left: 3px solid var(--accent-gold);
-            padding-left: 20px;
+        .contact-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* 右侧主要内容 */
+        .main-content {
+            display: flex;
+            flex-direction: column;
             gap: 30px;
-            margin-bottom: 100px;
         }
 
-        .card {
-            background: var(--glass);
+        .section {
+            background: var(--bg-card);
             padding: 30px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.4s;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--bg-body);
+            padding-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .section-icon {
+            background: #eff6ff;
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* 时间线/列表样式 */
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-date {
+            min-width: 120px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            padding-top: 3px;
+            text-align: right;
+        }
+
+        .timeline-content {
+            border-left: 2px solid var(--border-color);
+            padding-left: 20px;
+            padding-bottom: 5px;
             position: relative;
-            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-gold);
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 2px solid #fff;
         }
 
-        .card h3 {
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .item-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
             margin-bottom: 10px;
-            font-size: 1.5rem;
+            font-style: italic;
         }
 
-        .card p {
+        .item-desc {
             font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
+            color: #4b5563;
         }
 
-        .tags span {
+        .tags {
+            margin-top: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f3f4f6;
+            color: #4b5563;
             font-size: 0.75rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 10px;
-            border-radius: 4px;
-            margin-right: 8px;
-        }
-
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 50px 0;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* 简单的入场动画 */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-right: 5px;
         }
 
         /* 移动端适配 */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+            .container {
+                grid-template-columns: 1fr;
+                margin-top: 20px;
             }
 
-            .container {
-                padding: 0 20px;
+            .profile-card {
+                position: static;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .timeline-date {
+                text-align: left;
+                min-width: auto;
+                color: var(--primary-color);
+                font-size: 0.85rem;
+            }
+
+            .timeline-content {
+                border-left: none;
+                padding-left: 0;
+            }
+
+            .timeline-content::before {
+                display: none;
             }
         }
     </style>
@@ -214,81 +274,116 @@
 <body>
 
     <div class="container">
-        <nav>
-            <div class="logo">JINTAO.</div>
-            <div class="nav-links">
-                <a href="#work">Work</a>
-                <a href="#about">About</a>
-                <a href="mailto:your-email@example.com">Contact</a>
-            </div>
-        </nav>
+        <aside class="profile-card">
+            <img src="https://via.placeholder.com/300x300?text=Photo" alt="Jintao Zhu" class="avatar">
 
-        <section class="hero">
-            <p
-                style="color: var(--accent-gold); font-family: 'Inter'; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">
-                Hello, World.</p>
-            <h1>Designing the <br>Future of Code.</h1>
-            <p>I am Jintao Zhu, a software engineer specializing in building exceptional digital experiences with clean
-                architecture.</p>
-            <div>
-                <a href="https://github.com/Jintao-Zhu" class="btn">View Github</a>
-            </div>
-        </section>
+            <h1 class="name">Jintao Zhu</h1>
+            <p class="title">软件开发者 / 研究员</p>
 
-        <section id="work">
-            <h2 class="section-title">Selected Works</h2>
-            <div class="grid">
-                <article class="card">
-                    <h3>Enterprise SaaS</h3>
-                    <p>A scalable cloud architecture solution handling high concurrency for global enterprise clients.
-                    </p>
-                    <div class="tags">
-                        <span>Java</span>
-                        <span>Spring Boot</span>
-                        <span>Microservices</span>
+            <div class="contact-info">
+                <a href="mailto:your-email@example.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>your-email@example.com</span>
+                </a>
+                <a href="https://github.com/Jintao-Zhu" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>github.com/Jintao-Zhu</span>
+                </a>
+                <a href="#" class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>中国，北京</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-user"></i></div>
+                    <h2 class="section-title">关于我</h2>
+                </div>
+                <p style="color: #4b5563;">
+                    你好！我是一名热衷于构建高效软件系统和探索前沿技术的开发者。我专注于清洁架构、高性能计算以及人工智能在工程领域的应用。我坚信代码不仅要运行良好，更要优雅易读。
+                </p>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h2 class="section-title">学习经历</h2>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2021 - 至今</div>
+                    <div class="timeline-content">
+                        <h3 class="item-title">计算机科学与技术 (本科)</h3>
+                        <p class="item-subtitle">XX 大学</p>
+                        <p class="item-desc">主修课程：数据结构与算法、操作系统、计算机网络、软件工程、人工智能导论。</p>
                     </div>
-                </article>
+                </div>
+            </section>
 
-                <article class="card">
-                    <h3>Algo Trading Bot</h3>
-                    <p>Automated high-frequency trading system with low latency optimization.</p>
-                    <div class="tags">
-                        <span>Python</span>
-                        <span>C++</span>
-                        <span>Docker</span>
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-flask"></i></div>
+                    <h2 class="section-title">科研与项目经历</h2>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2024.11 - 至今</div>
+                    <div class="timeline-content">
+                        <h3 class="item-title">无人机与地面车辆(UGV)协同系统</h3>
+                        <p class="item-subtitle">核心开发者 / 大学生创新创业项目</p>
+                        <p class="item-desc">
+                            基于 Open-RMF 和 Gazebo 仿真环境，研发空地协同控制算法。
+                            设计并实现了基于强化学习的任务调度模块，提升了多智能体协作效率。
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">ROS2</span>
+                            <span class="tag">Gazebo</span>
+                            <span class="tag">Open-RMF</span>
+                        </div>
                     </div>
-                </article>
+                </div>
 
-                <article class="card">
-                    <h3>Modern Dashboard</h3>
-                    <p>Interactive data visualization dashboard for real-time analytics.</p>
-                    <div class="tags">
-                        <span>React</span>
-                        <span>D3.js</span>
-                        <span>TypeScript</span>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024.09 - 2024.11</div>
+                    <div class="timeline-content">
+                        <h3 class="item-title">Linux 内核文件系统定制 (myext2)</h3>
+                        <p class="item-subtitle">操作系统课程研究</p>
+                        <p class="item-desc">
+                            深入研究 Linux VFS 架构，修改内核源码实现了一个简易的文件系统。
+                            实现了基本的 inode 管理、文件读写操作及挂载机制。
+                        </p>
+                        <div class="tags">
+                            <span class="tag">C Language</span>
+                            <span class="tag">Linux Kernel</span>
+                        </div>
                     </div>
-                </article>
-            </div>
-        </section>
+                </div>
 
-        <section id="about" style="margin-bottom: 100px;">
-            <h2 class="section-title">Philosophy</h2>
-            <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 700px;">
-                I believe that code is not just about function, but about <b>craftsmanship</b>.
-                <br><br>
-                Whether it's optimizing a database query or polishing a UI animation, I strive for elegance in every
-                layer of the stack.
-            </p>
-        </section>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024.08 - 2024.10</div>
+                    <div class="timeline-content">
+                        <h3 class="item-title">自动化软件测试框架</h3>
+                        <p class="item-subtitle">测试工程师</p>
+                        <p class="item-desc">
+                            使用 Selenium 和 Pytest 对 Web 应用进行自动化测试。
+                            设计了白盒测试用例，涵盖边界值分析与等价类划分，显著降低了回归测试成本。
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Selenium</span>
+                            <span class="tag">Pytest</span>
+                        </div>
+                    </div>
+                </div>
 
-        <footer>
-            <p>&copy; 2025 Jintao Zhu. All rights reserved.</p>
-            <div style="margin-top: 20px; font-size: 1.2rem;">
-                <a href="https://github.com/Jintao-Zhu" style="margin: 0 10px;"><i class="fab fa-github"></i></a>
-                <a href="#" style="margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
-                <a href="#" style="margin: 0 10px;"><i class="fab fa-twitter"></i></a>
-            </div>
-        </footer>
+            </section>
+
+        </main>
     </div>
 
 </body>
