@@ -255,6 +255,14 @@
             margin-left: 6px;
         }
 
+        /* 项目详情描述文字样式 */
+        .project-desc {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #333;
+            text-align: justify;
+        }
+
         /* 移动端适配 */
         @media (max-width: 800px) {
             .container {
@@ -298,7 +306,7 @@
 
             <ul class="contact-list">
                 <li>
-                    <i class="fas fa-location-dot"></i> SuZhou, China
+                    <i class="fas fa-location-dot"></i> Suzhou, China
                 </li>
                 <li>
                     <i class="fas fa-envelope"></i>
@@ -328,15 +336,15 @@
 
             <div class="intro-text">
                 <p>
-                    I am <strong>Jintao Zhu (朱金涛)</strong>, currently a senior undergraduate student at <a
-                        href="#">Soochow
+                    I am <strong>Jintao Zhu (朱金涛)</strong>, currently an undergraduate student at <a href="#">Soochow
                         University</a>.
-                    I am conducting research related to <strong>Software Architecture</strong> and
+                    I am conducting research related to <strong>Multi-Agent Systems</strong> and
                     <strong>Robotics</strong>.
                 </p>
                 <p>
-                    My research interests lie in <strong>multi-agent systems</strong>, <strong>operating system
-                        kernels</strong>, and <strong>automated software testing</strong>.
+                    My research interests focus on solving <strong>coordination problems</strong> in complex
+                    environments using <strong>Reinforcement Learning</strong> and optimizing system robustness through
+                    <strong>Automated Testing</strong>.
                 </p>
             </div>
 
@@ -344,25 +352,41 @@
                 <h2>📝 Selected Projects</h2>
 
                 <div class="list-item">
-                    <a href="#" class="item-title">Towards Efficient Multi-Agent Coordination: A Drone-UGV Collaborative
-                        System</a>
+                    <a href="#" class="item-title">Design and Implementation of Drone-UGV Collaborative System for
+                        Patrol-Disposal Loop</a>
                     <div class="item-meta">
-                        <strong>Jintao Zhu</strong>, Team Members... <br>
-                        <em>Undergraduate Innovation Program</em>, 2024.
-                        <span class="tag">Python</span> <span class="tag">ROS2</span>
-                        <br>
-                        Designed a reinforcement learning-based task scheduling algorithm in Open-RMF.
+                        <strong>First Member (Core Developer)</strong> <br>
+                        <em>National Undergraduate Innovation Training Program</em>, 2025.05 - 2027.05.
+                        <span class="tag">RL-Enhanced RMF</span> <span class="tag">ROS</span> <span
+                            class="tag">Gazebo</span>
+                        <div class="project-desc">
+                            Designed an "Air-Ground Integrated" intelligent collaborative system to address the
+                            limitations of single-viewpoint patrol. Proposed an <strong>RL-Enhanced RMF</strong>
+                            decision model to dynamically optimize task allocation and path negotiation, solving
+                            deadlock issues in dense dynamic environments. Developed a high-precision <strong>RGB-D
+                                based spatial mapping algorithm</strong> to transform drone reconnaissance data into
+                            navigation goals for UGVs, achieving precise cross-device localization. Validated through
+                            Gazebo simulation and physical prototypes.
+                        </div>
                     </div>
                 </div>
 
                 <div class="list-item">
-                    <a href="#" class="item-title">MyExt2: A Lightweight Log-structured File System for Linux Kernel</a>
+                    <a href="#" class="item-title">Evolutionary Computation-based Framework for Heterogeneous
+                        Multi-Agent Adversarial Testing</a>
                     <div class="item-meta">
-                        <strong>Jintao Zhu</strong> <br>
-                        <em>Operating System Course Project</em>, 2024.
-                        <span class="tag">C</span> <span class="tag">Kernel</span>
-                        <br>
-                        Implemented custom inode management and VFS interface mapping within Linux Kernel v5.x.
+                        <strong>Project Leader</strong> <br>
+                        <em>Independent Research</em>, 2024.12 - Present.
+                        <span class="tag">MAPF</span> <span class="tag">Evolutionary Computation</span> <span
+                            class="tag">Adversarial Testing</span>
+                        <div class="project-desc">
+                            Designed a "Generation-Evaluation" closed-loop adversarial testing framework to evaluate the
+                            robustness of MAPF algorithms (e.g., PIBT, LaCAM) in extreme congestion and heterogeneous
+                            scenarios. Reproduced the <strong>Adaptive Random Testing (ART)</strong> algorithm and
+                            identified its limitations in sparse maps. Proposed a <strong>Genetic
+                                Algorithm-based</strong> heterogeneous scenario generation mechanism with a
+                            multi-objective fitness function to evolve "trap" terrains that cause coordination failures.
+                        </div>
                     </div>
                 </div>
             </section>
@@ -373,9 +397,9 @@
                 <div class="list-item">
                     <div class="item-title" style="cursor: default;">Soochow University</div>
                     <div class="item-meta">
-                        B.Eng. in Computer Science and Technology <br>
+                        B.Eng. in Software Engineering <br>
                         Sep. 2023 - Present <br>
-                        <strong>GPA:</strong> 3.8 / 4.0 (Top 0.75rem)
+                        <strong>GPA:</strong> 3.8 / 4.0
                     </div>
                 </div>
             </section>
@@ -387,8 +411,18 @@
                     <ul style="padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
                         <li><strong>Programming:</strong> Python, C/C++, Java, SQL, LaTeX, Bash</li>
                         <li><strong>Frameworks:</strong> Linux, Git, Docker, ROS2, Spring Boot</li>
-                        <li style="margin-top: 10px;">🏆 2023 National Scholarship (Top 1%)</li>
-                        <li>🏆 2024 First Prize in Mathematical Modeling Contest</li>
+
+                        <li style="margin-top: 15px;">
+                            🏆 <strong>National Third Prize</strong>, Group Programming Ladder Tournament (GPLT)
+                        </li>
+                        <li>
+                            🏆 <strong>Provincial Second Prize</strong>, National College Student Software Testing
+                            Contest (Qualified for National Finals)
+                        </li>
+                        <li>
+                            🏆 <strong>Provincial Second Prize</strong>, Lanqiao Cup National Software Competition
+                            (C++/Python Group)
+                        </li>
                     </ul>
                 </div>
             </section>
