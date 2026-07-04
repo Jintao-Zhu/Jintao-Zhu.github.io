@@ -9,427 +9,1107 @@
 
     <style>
         :root {
-            /* macOS 质感配色 */
-            --glass-bg: rgba(255, 255, 255, 0.65);
-            /* 浓郁的毛玻璃白 */
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --system-blue: #007AFF;
-            --system-gray: #8E8E93;
-            --text-primary: #1D1D1F;
-            --text-secondary: #86868B;
-            --page-bg: #F5F5F7;
-            /* 苹果经典的浅灰底色 */
-
-            /* 阴影：柔和的弥散阴影 */
+            --surface: rgba(255, 255, 255, 0.78);
+            --surface-solid: #ffffff;
+            --border: rgba(29, 29, 31, 0.08);
+            --accent: #007aff;
+            --accent-soft: rgba(0, 122, 255, 0.1);
+            --accent-green: #0f8f70;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e7378;
+            --page-bg: #f5f6f2;
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 12px 24px rgba(0, 0, 0, 0.06);
-
-            /* 圆角 */
-            --radius-xl: 24px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-
-            /* 布局参数（保持不变） */
+            --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.08);
+            --radius-panel: 18px;
+            --radius-card: 8px;
             --sidebar-width: 280px;
-            --gap: 50px;
+            --gap: 44px;
         }
 
-        /* --- 全局重置 --- */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            /* 优先使用苹果系统字体 San Francisco */
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: var(--page-bg);
-            /* 加一点极淡的渐变，让毛玻璃更通透 */
-            background-image: radial-gradient(circle at top left, #E4EDF9 0%, transparent 40%),
-                radial-gradient(circle at bottom right, #F2E6E6 0%, transparent 40%);
-            background-attachment: fixed;
-            /* 背景固定，滚动时不跟随 */
-            color: var(--text-primary);
-            line-height: 1.6;
             margin: 0;
-            padding: 0;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text-primary);
+            line-height: 1.65;
+            background:
+                linear-gradient(135deg, #f6f7f3 0%, #eef5f7 48%, #f7f1f1 100%);
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         a {
-            color: var(--system-blue);
+            color: var(--accent);
             text-decoration: none;
-            transition: opacity 0.2s;
+            transition: color 0.2s ease, opacity 0.2s ease;
         }
 
         a:hover {
-            opacity: 0.7;
+            opacity: 0.78;
         }
 
-        /* --- 核心布局容器 (保持之前的左右结构) --- */
         .container {
-            max-width: 1100px;
+            width: min(1120px, 100%);
             margin: 0 auto;
-            padding: 60px 20px;
-            /* 页面边距 */
+            padding: 60px 22px;
             display: flex;
             gap: var(--gap);
-            /* 左右间距 */
             align-items: flex-start;
-            /* 顶部对齐 */
         }
 
-        /* --- 左侧侧边栏 (Sidebar) --- */
         .sidebar {
             width: var(--sidebar-width);
             flex-shrink: 0;
             position: sticky;
-            top: 40px;
-            /* 吸顶距离 */
-
-            /* macOS 风格化：独立的毛玻璃卡片 */
-            background: var(--glass-bg);
-            backdrop-filter: saturate(180%) blur(25px);
-            -webkit-backdrop-filter: saturate(180%) blur(25px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-md);
-
-            padding: 40px 30px;
+            top: 34px;
+            padding: 34px 28px;
             text-align: center;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            border-radius: var(--radius-panel);
+            box-shadow: var(--shadow-md);
+            backdrop-filter: saturate(180%) blur(22px);
+            -webkit-backdrop-filter: saturate(180%) blur(22px);
         }
 
         .avatar {
             width: 140px;
             height: 140px;
+            margin-bottom: 20px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 20px;
-            /* 头像增加白色描边和阴影 */
-            border: 4px solid #FFFFFF;
+            border: 4px solid #ffffff;
             box-shadow: var(--shadow-sm);
         }
 
         .profile-name {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            margin: 0 0 8px;
+            font-size: 1.62rem;
+            font-weight: 720;
+            letter-spacing: 0;
         }
 
         .profile-bio {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
             margin-bottom: 25px;
-            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 560;
         }
 
         .contact-list {
-            list-style: none;
+            width: fit-content;
+            margin: 0 auto;
             padding: 0;
-            margin: 0;
+            list-style: none;
             text-align: left;
-            display: inline-block;
-            /* 列表居中，内容左对齐 */
         }
 
         .contact-list li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .contact-list i {
-            width: 24px;
-            color: var(--system-gray);
-            /* 图标灰色 */
-            margin-right: 8px;
-            text-align: center;
-        }
-
-        /* --- 右侧主要内容 (Main) --- */
-        .main-content {
-            flex-grow: 1;
-            /* 右侧也是一个独立的面板，或者保持透明 */
-            /* 这里选择稍微带一点白底，提升可读性，类似 iPad 分屏 */
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius-xl);
-            padding: 40px 50px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        /* 导航栏：仿 macOS 分段控制器 (Segmented Control) */
-        .nav-container {
-            margin-bottom: 40px;
-        }
-
-        .nav-links {
-            display: inline-flex;
-            background: rgba(118, 118, 128, 0.12);
-            /* 浅灰槽 */
-            padding: 3px;
-            border-radius: 10px;
-        }
-
-        .nav-links a {
-            padding: 6px 16px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            border-radius: 7px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .nav-links a:hover {
-            color: var(--system-blue);
-        }
-
-        /* 激活状态模拟（白色突起） */
-        .nav-links a.active {
-            background: #FFFFFF;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            color: var(--text-primary);
-        }
-
-        /* 简介文字 */
-        .intro-text {
-            font-size: 1.05rem;
-            margin-bottom: 50px;
-            color: #333;
-        }
-
-        /* 章节标题 */
-        h2 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #000;
             display: flex;
             align-items: center;
             gap: 10px;
-            letter-spacing: -0.3px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 520;
         }
 
-        /* 列表项 */
+        .contact-list i {
+            width: 20px;
+            color: #7b8086;
+            text-align: center;
+        }
+
+        .main-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .main-content,
+        .intro-text,
+        .list-item,
+        .item-title,
+        .item-meta,
+        .project-desc,
+        .skill-list {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 34px;
+        }
+
+        .nav-container {
+            min-width: 0;
+            overflow-x: auto;
+        }
+
+        .nav-links,
+        .language-toggle {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px;
+            border-radius: 10px;
+            background: rgba(118, 118, 128, 0.12);
+        }
+
+        .nav-links a,
+        .language-toggle button {
+            min-height: 32px;
+            border: 0;
+            border-radius: 7px;
+            color: var(--text-primary);
+            background: transparent;
+            font: inherit;
+            font-size: 0.86rem;
+            font-weight: 680;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .language-toggle {
+            flex-shrink: 0;
+        }
+
+        .language-toggle button {
+            min-width: 54px;
+            padding: 0 12px;
+        }
+
+        .nav-links a:hover,
+        .language-toggle button:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a.active,
+        .language-toggle button.is-active {
+            background: #ffffff;
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-text {
+            margin-bottom: 46px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border);
+            color: #303234;
+            font-size: 1.05rem;
+        }
+
+        .intro-text p {
+            margin: 0 0 16px;
+        }
+
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        section {
+            scroll-margin-top: 28px;
+            margin-bottom: 46px;
+        }
+
+        section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 18px;
+            color: #101112;
+            font-size: 1.35rem;
+            font-weight: 760;
+            letter-spacing: 0;
+        }
+
+        h2 i {
+            color: var(--accent-green);
+            font-size: 1.05rem;
+        }
+
         .list-item {
             padding: 20px;
-            margin-bottom: 20px;
-            background: #FFFFFF;
-            /* 项目卡片纯白 */
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(0, 0, 0, 0.03);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 18px;
+            background: var(--surface-solid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        /* 悬停微动效果 */
         .list-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+            border-color: rgba(0, 122, 255, 0.18);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
         }
 
         .item-title {
-            font-weight: 600;
-            font-size: 1.05rem;
             display: block;
             margin-bottom: 6px;
-            color: #000;
+            color: #101112;
+            font-size: 1.05rem;
+            font-weight: 680;
+        }
+
+        .item-title.static {
+            cursor: default;
         }
 
         .item-meta {
-            font-size: 0.9rem;
             color: var(--text-secondary);
-            line-height: 1.6;
+            font-size: 0.92rem;
+            line-height: 1.65;
         }
 
-        /* 标签：macOS 风格蓝色胶囊 */
-        .tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--system-blue);
-            background: rgba(0, 122, 255, 0.1);
-            padding: 3px 10px;
-            border-radius: 100px;
-            /* 完美圆角 */
-            margin-left: 6px;
-        }
-
-        /* 项目详情描述文字样式 */
-        .project-desc {
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
             margin-top: 10px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 24px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            font-size: 0.75rem;
+            font-weight: 680;
+        }
+
+        .project-desc {
+            margin-top: 12px;
+            color: #303234;
             font-size: 0.95rem;
-            color: #333;
             text-align: justify;
         }
 
-        /* 移动端适配 */
-        @media (max-width: 800px) {
+        .activity-card {
+            padding: 18px;
+            overflow: hidden;
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        .activity-title {
+            color: var(--text-primary);
+            font-weight: 680;
+        }
+
+        .activity-chart {
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .activity-chart img {
+            display: block;
+            width: 100%;
+            min-width: 680px;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .interest-item {
+            min-height: 126px;
+            padding: 18px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .interest-item i {
+            margin-bottom: 12px;
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+
+        .interest-item strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.98rem;
+        }
+
+        .interest-item span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        .skill-list {
+            margin: 0;
+            padding: 0;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            list-style: none;
+        }
+
+        .skill-list li {
+            display: grid;
+            grid-template-columns: 22px 1fr;
+            gap: 8px;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .skill-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-list i {
+            margin-top: 5px;
+            color: var(--accent-green);
+            text-align: center;
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 860px) {
             .container {
                 flex-direction: column;
-                padding: 20px;
-                gap: 30px;
+                align-items: stretch;
+                padding: 26px 18px 38px;
+                gap: 28px;
             }
 
             .sidebar {
-                width: 100%;
+                width: auto;
                 position: static;
-                /* 移动端取消吸顶 */
-                padding: 30px;
+                padding: 30px 24px;
             }
 
             .main-content {
-                width: 100%;
-                padding: 30px 20px;
+                width: auto;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column-reverse;
+                margin-bottom: 28px;
             }
 
             .nav-container {
-                overflow-x: auto;
-                white-space: nowrap;
+                width: 100%;
+            }
+
+            .nav-links {
+                min-width: max-content;
+            }
+
+            .intro-text {
+                font-size: 1rem;
+            }
+
+            .interest-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                padding-inline: 14px;
+            }
+
+            .sidebar {
+                padding: 26px 20px;
+            }
+
+            .avatar {
+                width: 124px;
+                height: 124px;
+            }
+
+            .nav-links a {
+                padding-inline: 12px;
+            }
+
+            .list-item {
+                padding: 18px 16px;
+            }
+
+            .activity-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .interest-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
 <body>
-
-    <div class="container">
-
+    <div class="container" id="top">
         <aside class="sidebar">
             <img src="./photo.jpg" alt="Jintao Zhu" class="avatar">
 
-            <h1 class="profile-name">Jintao Zhu</h1>
-            <div class="profile-bio">
-                B.Eng. in Software Engineering<br>
-                Soochow University
+            <h1 class="profile-name" data-i18n="profile.name">Jintao Zhu</h1>
+            <div class="profile-bio" data-i18n-html="profile.bio">
+                B.Eng. Candidate in Software Engineering<br>
+                Soochow University<br>
+                Incoming M.S. Student
             </div>
 
-            <ul class="contact-list">
+            <ul class="contact-list" aria-label="Contact information">
                 <li>
-                    <i class="fas fa-location-dot"></i> Suzhou, China
+                    <i class="fas fa-location-dot" aria-hidden="true"></i>
+                    <span data-i18n="contact.location">Suzhou, China</span>
                 </li>
                 <li>
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:2327406014@stu.suda.edu.cn">Email</a>
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <a href="mailto:zhujintao232@gmail.com" data-i18n="contact.email">Email</a>
                 </li>
                 <li>
-                    <i class="fab fa-github"></i>
-                    <a href="https://github.com/Jintao-Zhu" target="_blank">Github</a>
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                    <a href="https://github.com/Jintao-Zhu" target="_blank" rel="noreferrer" data-i18n="contact.github">GitHub</a>
                 </li>
                 <li>
-                    <i class="fas fa-graduation-cap"></i>
-                    <a href="#">Google Scholar</a>
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                    <a href="#" data-i18n="contact.scholar">Google Scholar</a>
                 </li>
             </ul>
         </aside>
 
         <main class="main-content">
+            <div class="topbar">
+                <div class="nav-container" aria-label="Primary navigation">
+                    <nav class="nav-links">
+                        <a href="#top" class="active" data-nav-link data-i18n="nav.home">Homepage</a>
+                        <a href="#interests" data-nav-link data-i18n="nav.interests">Interests</a>
+                        <a href="#projects" data-nav-link data-i18n="nav.projects">Projects</a>
+                        <a href="#education" data-nav-link data-i18n="nav.education">Education</a>
+                        <a href="#honors" data-nav-link data-i18n="nav.honors">Honors</a>
+                        <a href="#activity" data-nav-link data-i18n="nav.activity">Activity</a>
+                        <a href="#skills" data-nav-link data-i18n="nav.skills">Skills</a>
+                    </nav>
+                </div>
 
-            <div class="nav-container">
-                <nav class="nav-links">
-                    <a href="#" class="active">Homepage</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#education">Education</a>
-                    <a href="#skills">Skills</a>
-                </nav>
+                <div class="language-toggle" aria-label="Language switcher">
+                    <button type="button" data-lang-button="en" aria-pressed="true">EN</button>
+                    <button type="button" data-lang-button="zh" aria-pressed="false">中文</button>
+                </div>
             </div>
 
             <div class="intro-text">
-                <p>
-                    I am <strong>Jintao Zhu (朱金涛)</strong>, currently an undergraduate student at <a href="#">Soochow
-                        University</a>.
-                    I am conducting research related to <strong>Multi-Agent Systems</strong> and
-                    <strong>Robotics</strong>.
+                <p data-i18n-html="intro.one">
+                    I am <strong>Jintao Zhu (朱金涛)</strong>, an undergraduate student in Software Engineering at
+                    <a href="#">Soochow University</a>. I have been recommended for graduate study at the
+                    <strong>School of Future Science and Engineering, Soochow University</strong>, where I will be
+                    supervised by <strong>Prof. Si'ao Liu (刘司澳)</strong>.
                 </p>
-                <p>
-                    My research interests focus on solving <strong>coordination problems</strong> in complex
-                    environments using <strong>Reinforcement Learning</strong> and optimizing system robustness through
-                    <strong>Automated Testing</strong>.
+                <p data-i18n-html="intro.two">
+                    My current interests center on <strong>robotics algorithms</strong>,
+                    <strong>embodied intelligence</strong>, and autonomous systems, especially perception, decision-making,
+                    motion, simulation-based evaluation, and research software. I enjoy building complete prototypes
+                    that connect algorithms, simulation, real devices, and usable software systems.
+                </p>
+                <p data-i18n-html="intro.three">
+                    My current GPA is <strong>3.8 / 4.0</strong>, ranking <strong>9 / 135</strong> in my major. I have
+                    received scholarships and competition awards in programming, mathematical modeling, software testing,
+                    robotics, and innovation practice.
+                </p>
+                <p data-i18n-html="intro.contact">
+                    Email: <a href="mailto:zhujintao232@gmail.com">zhujintao232@gmail.com</a>
                 </p>
             </div>
 
+            <section id="interests">
+                <h2>
+                    <i class="fas fa-compass-drafting" aria-hidden="true"></i>
+                    <span data-i18n="sections.interests">Research Interests</span>
+                </h2>
+
+                <div class="interest-grid">
+                    <div class="interest-item">
+                        <i class="fas fa-robot" aria-hidden="true"></i>
+                        <strong data-i18n="interest.robotics.title">Robotics Algorithms</strong>
+                        <span data-i18n="interest.robotics.desc">Algorithmic foundations for robot perception, decision-making, motion, and control.</span>
+                    </div>
+                    <div class="interest-item">
+                        <i class="fas fa-brain" aria-hidden="true"></i>
+                        <strong data-i18n="interest.embodied.title">Embodied Intelligence</strong>
+                        <span data-i18n="interest.embodied.desc">Learning and reasoning methods that connect models, environments, and physical agents.</span>
+                    </div>
+                    <div class="interest-item">
+                        <i class="fas fa-route" aria-hidden="true"></i>
+                        <strong data-i18n="interest.autonomy.title">Autonomous Systems</strong>
+                        <span data-i18n="interest.autonomy.desc">Robust task execution, scheduling, and adaptation in dynamic real-world settings.</span>
+                    </div>
+                    <div class="interest-item">
+                        <i class="fas fa-cubes-stacked" aria-hidden="true"></i>
+                        <strong data-i18n="interest.simulation.title">Simulation & Evaluation</strong>
+                        <span data-i18n="interest.simulation.desc">Reproducible simulation pipelines, benchmarks, testing, and failure analysis.</span>
+                    </div>
+                    <div class="interest-item">
+                        <i class="fas fa-flask" aria-hidden="true"></i>
+                        <strong data-i18n="interest.software.title">Research Software</strong>
+                        <span data-i18n="interest.software.desc">Reliable tools and systems that make experiments traceable, repeatable, and useful.</span>
+                    </div>
+                    <div class="interest-item">
+                        <i class="fas fa-diagram-project" aria-hidden="true"></i>
+                        <strong data-i18n="interest.agents.title">Research Agents</strong>
+                        <span data-i18n="interest.agents.desc">Agent systems for literature analysis, coding assistance, experiment workflows, and knowledge organization.</span>
+                    </div>
+                </div>
+            </section>
+
             <section id="projects">
-                <h2>📝 Selected Projects</h2>
+                <h2>
+                    <i class="fas fa-diagram-project" aria-hidden="true"></i>
+                    <span data-i18n="sections.projects">Selected Projects</span>
+                </h2>
 
                 <div class="list-item">
-                    <a href="#" class="item-title">Design and Implementation of Drone-UGV Collaborative System for
-                        Patrol-Disposal Loop</a>
+                    <a href="#" class="item-title" data-i18n="project.drone.title">Design and Implementation of Drone-UGV Collaborative System for Patrol-Disposal Loop</a>
                     <div class="item-meta">
-                        <strong>First Member (Core Developer)</strong> <br>
-                        <em>National Undergraduate Innovation Training Program</em>, 2025.05 - 2027.05.
-                        <span class="tag">RL-Enhanced RMF</span> <span class="tag">ROS</span> <span
-                            class="tag">Gazebo</span>
-                        <div class="project-desc">
-                            Designed an "Air-Ground Integrated" intelligent collaborative system to address the
+                        <strong data-i18n="project.drone.role">First Member / Core Developer</strong><br>
+                        <span data-i18n="project.drone.program">National Undergraduate Innovation Training Program, 2025.05 - 2027.05.</span>
+                        <div class="tag-row" aria-label="Project keywords">
+                            <span class="tag" data-i18n="tag.rmf">RL-Enhanced RMF</span>
+                            <span class="tag">ROS</span>
+                            <span class="tag">Gazebo</span>
+                        </div>
+                        <div class="project-desc" data-i18n-html="project.drone.desc">
+                            Designed an "air-ground integrated" intelligent collaborative system to address the
                             limitations of single-viewpoint patrol. Proposed an <strong>RL-Enhanced RMF</strong>
                             decision model to dynamically optimize task allocation and path negotiation, solving
-                            deadlock issues in dense dynamic environments. Developed a high-precision <strong>RGB-D
-                                based spatial mapping algorithm</strong> to transform drone reconnaissance data into
-                            navigation goals for UGVs, achieving precise cross-device localization. Validated through
-                            Gazebo simulation and physical prototypes.
+                            deadlock issues in dense dynamic environments. Developed a high-precision
+                            <strong>RGB-D based spatial mapping algorithm</strong> to transform drone reconnaissance
+                            data into navigation goals for UGVs, achieving precise cross-device localization. Validated
+                            through Gazebo simulation and physical prototypes.
                         </div>
                     </div>
                 </div>
 
                 <div class="list-item">
-                    <a href="#" class="item-title">Evolutionary Computation-based Framework for Heterogeneous
-                        Multi-Agent Adversarial Testing</a>
+                    <a href="#" class="item-title" data-i18n="project.ppo.title">PPO-based Dynamic Scheduling Optimization for Air-Ground Collaborative Multi-Robot Systems</a>
                     <div class="item-meta">
-                        <strong>Project Leader</strong> <br>
-                        <em>Independent Research</em>, 2024.12 - Present.
-                        <span class="tag">MAPF</span> <span class="tag">Evolutionary Computation</span> <span
-                            class="tag">Adversarial Testing</span>
-                        <div class="project-desc">
-                            Designed a "Generation-Evaluation" closed-loop adversarial testing framework to evaluate the
-                            robustness of MAPF algorithms (e.g., PIBT, LaCAM) in extreme congestion and heterogeneous
-                            scenarios. Reproduced the <strong>Adaptive Random Testing (ART)</strong> algorithm and
-                            identified its limitations in sparse maps. Proposed a <strong>Genetic
-                                Algorithm-based</strong> heterogeneous scenario generation mechanism with a
-                            multi-objective fitness function to evolve "trap" terrains that cause coordination failures.
+                        <strong data-i18n="project.ppo.role">Second Author</strong><br>
+                        <span data-i18n="project.ppo.program">Accepted by RPIC 2026, IEEE conference, EI indexed. 2025.09 - 2026.01.</span>
+                        <div class="tag-row" aria-label="Project keywords">
+                            <span class="tag">PPO</span>
+                            <span class="tag">ROS2 / RMF</span>
+                            <span class="tag">Gazebo</span>
+                        </div>
+                        <div class="project-desc" data-i18n-html="project.ppo.desc">
+                            Modeled dynamic multi-robot scheduling as an MDP and trained a PPO-based scheduler with
+                            state features covering robot positions, task states, queues, and loads. Designed
+                            anchor-guided action pruning, task queue reordering, and a nonlinear reward that balances
+                            completion time and load fairness. Gazebo experiments reduced total task completion time by
+                            29.52% and queue-length variance by 67.16% compared with a greedy baseline.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <a href="#" class="item-title" data-i18n="project.imitation.title">Dynamic Sample Reweighting for Robot Imitation Learning</a>
+                    <div class="item-meta">
+                        <strong data-i18n="project.imitation.role">Recent Research Work</strong><br>
+                        <span data-i18n="project.imitation.program">RoboTwin-based experiments, 2026.03 - Present.</span>
+                        <div class="tag-row" aria-label="Project keywords">
+                            <span class="tag">RoboTwin</span>
+                            <span class="tag">ACT</span>
+                            <span class="tag">Diffusion Policy</span>
+                        </div>
+                        <div class="project-desc" data-i18n-html="project.imitation.desc">
+                            Explored feedback-driven sample reweighting for robot imitation learning, aiming to improve
+                            learning on difficult phases and long-tail trajectory segments without changing the policy
+                            architecture. Modified RoboTwin training, sampling, and evaluation workflows for ACT and
+                            Diffusion Policy; developed static and dynamic weighting strategies, multi-stage checkpoint
+                            evaluation scripts, and result aggregation tools.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <a href="#" class="item-title" data-i18n="project.testing.title">Evolutionary Computation-based Framework for Heterogeneous Multi-Agent Adversarial Testing</a>
+                    <div class="item-meta">
+                        <strong data-i18n="project.testing.role">Project Leader</strong><br>
+                        <span data-i18n="project.testing.program">Independent Research, 2024.12 - Present.</span>
+                        <div class="tag-row" aria-label="Project keywords">
+                            <span class="tag">MAPF</span>
+                            <span class="tag" data-i18n="tag.ec">Evolutionary Computation</span>
+                            <span class="tag" data-i18n="tag.adversarial">Adversarial Testing</span>
+                        </div>
+                        <div class="project-desc" data-i18n-html="project.testing.desc">
+                            Designed a "generation-evaluation" closed-loop adversarial testing framework to evaluate
+                            the robustness of MAPF algorithms such as PIBT and LaCAM in extreme congestion and
+                            heterogeneous scenarios. Reproduced the <strong>Adaptive Random Testing (ART)</strong>
+                            algorithm and identified its limitations in sparse maps. Proposed a
+                            <strong>Genetic Algorithm-based</strong> heterogeneous scenario generation mechanism with a
+                            multi-objective fitness function to evolve trap terrains that cause coordination failures.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <a href="#" class="item-title" data-i18n="project.structura.title">StructuraScholar: Academic Paper Analysis Agent System</a>
+                    <div class="item-meta">
+                        <strong data-i18n="project.structura.role">Full-Stack Developer</strong><br>
+                        <span data-i18n="project.structura.program">Research assistant workspace for literature analysis, 2026.06.</span>
+                        <div class="tag-row" aria-label="Project keywords">
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">React</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag" data-i18n="tag.kg">Knowledge Graph</span>
+                        </div>
+                        <div class="project-desc" data-i18n-html="project.structura.desc">
+                            Built a full-stack research workspace for importing PDFs, parsing paper structure, extracting
+                            problems, methods, datasets, metrics, and evidence, and generating cross-paper reports.
+                            Implemented core backend models and services for parsing tasks, evidence tracing, hybrid
+                            retrieval QA, Vision/OCR analysis, knowledge graphs, citation expansion, and Markdown report
+                            generation, with tests covering upload, parsing, RAG, KG, and citation workflows.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <a href="#" class="item-title" data-i18n="project.javaagent.title">Java Programming Intelligent Learning Agent System</a>
+                    <div class="item-meta">
+                        <strong data-i18n="project.javaagent.role">Full-Stack Developer / Agent Orchestration</strong><br>
+                        <span data-i18n="project.javaagent.program">Software Cup project, 2026.06.</span>
+                        <div class="tag-row" aria-label="Project keywords">
+                            <span class="tag">FastAPI</span>
+                            <span class="tag">Vue 3</span>
+                            <span class="tag" data-i18n="tag.multiagent">Multi-Agent</span>
+                            <span class="tag" data-i18n="tag.education">Education AI</span>
+                        </div>
+                        <div class="project-desc" data-i18n-html="project.javaagent.desc">
+                            Developed an intelligent learning platform for Java programming that supports learner
+                            profiling, mastery diagnosis, learning path planning, resource recommendation, course QA,
+                            exercise assessment, and code judging. Built backend services for learning events,
+                            recommendation, diagnosis, practice evaluation, and multi-agent answer generation with trace
+                            records and quality checks; integrated dashboard, knowledge base, learning path, practice,
+                            code editor, and history analysis pages.
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="education">
-                <h2>🎓 Education</h2>
+                <h2>
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                    <span data-i18n="sections.education">Education</span>
+                </h2>
 
                 <div class="list-item">
-                    <div class="item-title" style="cursor: default;">Soochow University</div>
-                    <div class="item-meta">
-                        B.Eng. in Software Engineering <br>
-                        Sep. 2023 - Present <br>
-                        <strong>GPA:</strong> 3.8 / 4.0
+                    <div class="item-title static" data-i18n="education.grad.school">Soochow University, School of Future Science and Engineering</div>
+                    <div class="item-meta" data-i18n-html="education.grad.detail">
+                        Incoming M.S. Student via postgraduate recommendation<br>
+                        Supervisor: <strong>Prof. Si'ao Liu (刘司澳)</strong>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="item-title static" data-i18n="education.school">Soochow University</div>
+                    <div class="item-meta" data-i18n-html="education.detail">
+                        B.Eng. Candidate in Software Engineering<br>
+                        Sep. 2023 - Present<br>
+                        <strong>GPA:</strong> 3.8 / 4.0 · <strong>Rank:</strong> 9 / 135<br>
+                        <strong>CET-4:</strong> 567 · <strong>CET-6:</strong> 471<br>
+                        Selected coursework: Machine Learning (100), Data Structures (96), Software Testing and Quality Assurance (96), Computer Networks and Communication (95)
                     </div>
                 </div>
             </section>
 
-            <section id="skills">
-                <h2>🛠️ Skills & Awards</h2>
+            <section id="honors">
+                <h2>
+                    <i class="fas fa-award" aria-hidden="true"></i>
+                    <span data-i18n="sections.honors">Honors & Awards</span>
+                </h2>
 
                 <div class="list-item">
-                    <ul style="padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                        <li><strong>Programming:</strong> Python, C/C++, Java, SQL, LaTeX, Bash</li>
-                        <li><strong>Frameworks:</strong> Linux, Git, Docker, ROS2, Spring Boot</li>
+                    <ul class="skill-list">
+                        <li>
+                            <i class="fas fa-medal" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.scholarship.one"><strong>Soochow Zhengxiong Smart Donation Scholarship</strong>, top 1% in major</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-medal" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.scholarship.two"><strong>Innovation and Entrepreneurship First-Class Scholarship</strong>, top 3% in major</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-medal" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.scholarship.three"><strong>Academic Excellence Second-Class Scholarship</strong>, awarded twice</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-medal" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.scholarship.four"><strong>Social Work Special Scholarship</strong>, awarded twice</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-check" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.campus"><strong>Campus honors:</strong> Outstanding Student Leader, Outstanding Communist Youth League Cadre, Advanced Individual in Summer Social Practice, Outstanding Student Backbone</span>
+                        </li>
+                    </ul>
+                </div>
 
-                        <li style="margin-top: 15px;">
-                            🏆 <strong>National Third Prize</strong>, Group Programming Ladder Tournament (GPLT)
+                <div class="list-item">
+                    <ul class="skill-list">
+                        <li>
+                            <i class="fas fa-trophy" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.competition.one"><strong>National Third Prize</strong>, 2026 Group Programming Ladder Tournament, individual award</span>
                         </li>
                         <li>
-                            🏆 <strong>Provincial Second Prize</strong>, National College Student Software Testing
-                            Contest (Qualified for National Finals)
+                            <i class="fas fa-trophy" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.competition.two"><strong>Meritorious Winner</strong>, Mathematical Contest in Modeling (MCM)</span>
                         </li>
                         <li>
-                            🏆 <strong>Provincial Second Prize</strong>, Lanqiao Cup National Software Competition
-                            (C++/Python Group)
+                            <i class="fas fa-trophy" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.competition.three"><strong>Jiangsu Provincial First Prize</strong>, 17th Lanqiao Cup, Python A Group</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-trophy" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.competition.four"><strong>Jiangsu Provincial Second Prize</strong>, 2025 National College Student Software Testing Contest</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-trophy" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.competition.five"><strong>Jiangsu Provincial Third Prize</strong>, 2025 RAICOM Robot Developer Contest</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-certificate" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.competition.six"><strong>CSP Certification:</strong> 260</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-file-signature" aria-hidden="true"></i>
+                            <span data-i18n-html="honors.output.one"><strong>Software Copyright:</strong> Multi-Agent Cooperative Orchard Autonomous Scheduling Control Platform, first author, Registration No. 2026SR0211431</span>
                         </li>
                     </ul>
                 </div>
             </section>
 
+            <section id="activity">
+                <h2>
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                    <span data-i18n="sections.activity">GitHub Activity</span>
+                </h2>
+
+                <div class="list-item activity-card">
+                    <div class="activity-header">
+                        <span class="activity-title" data-i18n="activity.title">Contribution Heatmap</span>
+                        <a href="https://github.com/Jintao-Zhu" target="_blank" rel="noreferrer" data-i18n="activity.profile">View GitHub Profile</a>
+                    </div>
+                    <div class="activity-chart">
+                        <img src="https://ghchart.rshah.org/007aff/Jintao-Zhu" alt="Jintao Zhu GitHub contribution heatmap" loading="lazy">
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills">
+                <h2>
+                    <i class="fas fa-screwdriver-wrench" aria-hidden="true"></i>
+                    <span data-i18n="sections.skills">Skills</span>
+                </h2>
+
+                <div class="list-item">
+                    <ul class="skill-list">
+                        <li>
+                            <i class="fas fa-code" aria-hidden="true"></i>
+                            <span data-i18n-html="skills.programming"><strong>Programming:</strong> Python, C/C++, Java, SQL, LaTeX, Bash</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-layer-group" aria-hidden="true"></i>
+                            <span data-i18n-html="skills.frameworks"><strong>Frameworks:</strong> Linux, Git, Docker, ROS2, Spring Boot</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-robot" aria-hidden="true"></i>
+                            <span data-i18n-html="skills.research"><strong>Research:</strong> Robotics Algorithms, Embodied Intelligence, Autonomous Systems, Robot Learning, Simulation & Evaluation</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-network-wired" aria-hidden="true"></i>
+                            <span data-i18n-html="skills.engineering"><strong>Engineering:</strong> ROS2 / RMF, Gazebo, FastAPI, React, Vue, RAG, Knowledge Graphs, Agent Orchestration</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </main>
     </div>
 
+    <script>
+        const translations = {
+            en: {
+                "meta.title": "Jintao Zhu | Homepage",
+                "profile.name": "Jintao Zhu",
+                "profile.bio": "B.Eng. Candidate in Software Engineering<br>Soochow University<br>Incoming M.S. Student",
+                "contact.location": "Suzhou, China",
+                "contact.email": "Email",
+                "contact.github": "GitHub",
+                "contact.scholar": "Google Scholar",
+                "nav.home": "Homepage",
+                "nav.interests": "Interests",
+                "nav.projects": "Projects",
+                "nav.education": "Education",
+                "nav.honors": "Honors",
+                "nav.activity": "Activity",
+                "nav.skills": "Skills",
+                "intro.one": "I am <strong>Jintao Zhu (朱金涛)</strong>, an undergraduate student in Software Engineering at <a href=\"#\">Soochow University</a>. I have been recommended for graduate study at the <strong>School of Future Science and Engineering, Soochow University</strong>, where I will be supervised by <strong>Prof. Si'ao Liu (刘司澳)</strong>.",
+                "intro.two": "My current interests center on <strong>robotics algorithms</strong>, <strong>embodied intelligence</strong>, and autonomous systems, especially perception, decision-making, motion, simulation-based evaluation, and research software. I enjoy building complete prototypes that connect algorithms, simulation, real devices, and usable software systems.",
+                "intro.three": "My current GPA is <strong>3.8 / 4.0</strong>, ranking <strong>9 / 135</strong> in my major. I have received scholarships and competition awards in programming, mathematical modeling, software testing, robotics, and innovation practice.",
+                "intro.contact": "Email: <a href=\"mailto:zhujintao232@gmail.com\">zhujintao232@gmail.com</a>",
+                "sections.interests": "Research Interests",
+                "sections.projects": "Selected Projects",
+                "sections.education": "Education",
+                "sections.honors": "Honors & Awards",
+                "sections.activity": "GitHub Activity",
+                "sections.skills": "Skills",
+                "interest.robotics.title": "Robotics Algorithms",
+                "interest.robotics.desc": "Algorithmic foundations for robot perception, decision-making, motion, and control.",
+                "interest.embodied.title": "Embodied Intelligence",
+                "interest.embodied.desc": "Learning and reasoning methods that connect models, environments, and physical agents.",
+                "interest.autonomy.title": "Autonomous Systems",
+                "interest.autonomy.desc": "Robust task execution, scheduling, and adaptation in dynamic real-world settings.",
+                "interest.simulation.title": "Simulation & Evaluation",
+                "interest.simulation.desc": "Reproducible simulation pipelines, benchmarks, testing, and failure analysis.",
+                "interest.software.title": "Research Software",
+                "interest.software.desc": "Reliable tools and systems that make experiments traceable, repeatable, and useful.",
+                "interest.agents.title": "Research Agents",
+                "interest.agents.desc": "Agent systems for literature analysis, coding assistance, experiment workflows, and knowledge organization.",
+                "activity.title": "Contribution Heatmap",
+                "activity.profile": "View GitHub Profile",
+                "project.drone.title": "Design and Implementation of Drone-UGV Collaborative System for Patrol-Disposal Loop",
+                "project.drone.role": "First Member / Core Developer",
+                "project.drone.program": "National Undergraduate Innovation Training Program, 2025.05 - 2027.05.",
+                "project.drone.desc": "Designed an \"air-ground integrated\" intelligent collaborative system to address the limitations of single-viewpoint patrol. Proposed an <strong>RL-Enhanced RMF</strong> decision model to dynamically optimize task allocation and path negotiation, solving deadlock issues in dense dynamic environments. Developed a high-precision <strong>RGB-D based spatial mapping algorithm</strong> to transform drone reconnaissance data into navigation goals for UGVs, achieving precise cross-device localization. Validated through Gazebo simulation and physical prototypes.",
+                "project.ppo.title": "PPO-based Dynamic Scheduling Optimization for Air-Ground Collaborative Multi-Robot Systems",
+                "project.ppo.role": "Second Author",
+                "project.ppo.program": "Accepted by RPIC 2026, IEEE conference, EI indexed. 2025.09 - 2026.01.",
+                "project.ppo.desc": "Modeled dynamic multi-robot scheduling as an MDP and trained a PPO-based scheduler with state features covering robot positions, task states, queues, and loads. Designed anchor-guided action pruning, task queue reordering, and a nonlinear reward that balances completion time and load fairness. Gazebo experiments reduced total task completion time by 29.52% and queue-length variance by 67.16% compared with a greedy baseline.",
+                "project.imitation.title": "Dynamic Sample Reweighting for Robot Imitation Learning",
+                "project.imitation.role": "Recent Research Work",
+                "project.imitation.program": "RoboTwin-based experiments, 2026.03 - Present.",
+                "project.imitation.desc": "Explored feedback-driven sample reweighting for robot imitation learning, aiming to improve learning on difficult phases and long-tail trajectory segments without changing the policy architecture. Modified RoboTwin training, sampling, and evaluation workflows for ACT and Diffusion Policy; developed static and dynamic weighting strategies, multi-stage checkpoint evaluation scripts, and result aggregation tools.",
+                "project.testing.title": "Evolutionary Computation-based Framework for Heterogeneous Multi-Agent Adversarial Testing",
+                "project.testing.role": "Project Leader",
+                "project.testing.program": "Independent Research, 2024.12 - Present.",
+                "project.testing.desc": "Designed a \"generation-evaluation\" closed-loop adversarial testing framework to evaluate the robustness of MAPF algorithms such as PIBT and LaCAM in extreme congestion and heterogeneous scenarios. Reproduced the <strong>Adaptive Random Testing (ART)</strong> algorithm and identified its limitations in sparse maps. Proposed a <strong>Genetic Algorithm-based</strong> heterogeneous scenario generation mechanism with a multi-objective fitness function to evolve trap terrains that cause coordination failures.",
+                "project.structura.title": "StructuraScholar: Academic Paper Analysis Agent System",
+                "project.structura.role": "Full-Stack Developer",
+                "project.structura.program": "Research assistant workspace for literature analysis, 2026.06.",
+                "project.structura.desc": "Built a full-stack research workspace for importing PDFs, parsing paper structure, extracting problems, methods, datasets, metrics, and evidence, and generating cross-paper reports. Implemented core backend models and services for parsing tasks, evidence tracing, hybrid retrieval QA, Vision/OCR analysis, knowledge graphs, citation expansion, and Markdown report generation, with tests covering upload, parsing, RAG, KG, and citation workflows.",
+                "project.javaagent.title": "Java Programming Intelligent Learning Agent System",
+                "project.javaagent.role": "Full-Stack Developer / Agent Orchestration",
+                "project.javaagent.program": "Software Cup project, 2026.06.",
+                "project.javaagent.desc": "Developed an intelligent learning platform for Java programming that supports learner profiling, mastery diagnosis, learning path planning, resource recommendation, course QA, exercise assessment, and code judging. Built backend services for learning events, recommendation, diagnosis, practice evaluation, and multi-agent answer generation with trace records and quality checks; integrated dashboard, knowledge base, learning path, practice, code editor, and history analysis pages.",
+                "education.grad.school": "Soochow University, School of Future Science and Engineering",
+                "education.grad.detail": "Incoming M.S. Student via postgraduate recommendation<br>Supervisor: <strong>Prof. Si'ao Liu (刘司澳)</strong>",
+                "education.school": "Soochow University",
+                "education.detail": "B.Eng. Candidate in Software Engineering<br>Sep. 2023 - Present<br><strong>GPA:</strong> 3.8 / 4.0 · <strong>Rank:</strong> 9 / 135<br><strong>CET-4:</strong> 567 · <strong>CET-6:</strong> 471<br>Selected coursework: Machine Learning (100), Data Structures (96), Software Testing and Quality Assurance (96), Computer Networks and Communication (95)",
+                "honors.scholarship.one": "<strong>Soochow Zhengxiong Smart Donation Scholarship</strong>, top 1% in major",
+                "honors.scholarship.two": "<strong>Innovation and Entrepreneurship First-Class Scholarship</strong>, top 3% in major",
+                "honors.scholarship.three": "<strong>Academic Excellence Second-Class Scholarship</strong>, awarded twice",
+                "honors.scholarship.four": "<strong>Social Work Special Scholarship</strong>, awarded twice",
+                "honors.campus": "<strong>Campus honors:</strong> Outstanding Student Leader, Outstanding Communist Youth League Cadre, Advanced Individual in Summer Social Practice, Outstanding Student Backbone",
+                "honors.competition.one": "<strong>National Third Prize</strong>, 2026 Group Programming Ladder Tournament, individual award",
+                "honors.competition.two": "<strong>Meritorious Winner</strong>, Mathematical Contest in Modeling (MCM)",
+                "honors.competition.three": "<strong>Jiangsu Provincial First Prize</strong>, 17th Lanqiao Cup, Python A Group",
+                "honors.competition.four": "<strong>Jiangsu Provincial Second Prize</strong>, 2025 National College Student Software Testing Contest",
+                "honors.competition.five": "<strong>Jiangsu Provincial Third Prize</strong>, 2025 RAICOM Robot Developer Contest",
+                "honors.competition.six": "<strong>CSP Certification:</strong> 260",
+                "honors.output.one": "<strong>Software Copyright:</strong> Multi-Agent Cooperative Orchard Autonomous Scheduling Control Platform, first author, Registration No. 2026SR0211431",
+                "skills.programming": "<strong>Programming:</strong> Python, C/C++, Java, SQL, LaTeX, Bash",
+                "skills.frameworks": "<strong>Frameworks:</strong> Linux, Git, Docker, ROS2, Spring Boot",
+                "skills.research": "<strong>Research:</strong> Robotics Algorithms, Embodied Intelligence, Autonomous Systems, Robot Learning, Simulation & Evaluation",
+                "skills.engineering": "<strong>Engineering:</strong> ROS2 / RMF, Gazebo, FastAPI, React, Vue, RAG, Knowledge Graphs, Agent Orchestration",
+                "tag.rmf": "RL-Enhanced RMF",
+                "tag.ec": "Evolutionary Computation",
+                "tag.adversarial": "Adversarial Testing",
+                "tag.kg": "Knowledge Graph",
+                "tag.multiagent": "Multi-Agent",
+                "tag.education": "Education AI"
+            },
+            zh: {
+                "meta.title": "朱金涛 | 个人主页",
+                "profile.name": "朱金涛",
+                "profile.bio": "软件工程本科在读<br>苏州大学<br>拟攻读硕士研究生",
+                "contact.location": "中国苏州",
+                "contact.email": "邮箱",
+                "contact.github": "GitHub",
+                "contact.scholar": "Google Scholar",
+                "nav.home": "主页",
+                "nav.interests": "研究兴趣",
+                "nav.projects": "项目",
+                "nav.education": "教育经历",
+                "nav.honors": "荣誉奖项",
+                "nav.activity": "GitHub",
+                "nav.skills": "技能",
+                "intro.one": "我是 <strong>朱金涛</strong>，苏州大学软件工程专业本科生。已保研至 <strong>苏州大学未来科学与工程学院</strong>，师从 <strong>刘司澳</strong>，继续开展研究生阶段学习与科研。",
+                "intro.two": "我目前的兴趣主要围绕 <strong>机器人算法</strong>、<strong>具身智能</strong> 与自主系统，关注感知、决策、运动、仿真评测与科研软件等问题，也喜欢把算法、仿真、真实设备和可用的软件系统串联成完整原型。",
+                "intro.three": "目前学分绩点 <strong>3.8 / 4.0</strong>，专业排名 <strong>9 / 135</strong>。曾获得多项奖学金，以及程序设计、数学建模、软件测试、机器人与创新实践相关竞赛奖项。",
+                "intro.contact": "邮箱：<a href=\"mailto:zhujintao232@gmail.com\">zhujintao232@gmail.com</a>",
+                "sections.interests": "研究兴趣",
+                "sections.projects": "代表项目",
+                "sections.education": "教育经历",
+                "sections.honors": "荣誉奖项",
+                "sections.activity": "GitHub 动态",
+                "sections.skills": "技能",
+                "interest.robotics.title": "机器人算法",
+                "interest.robotics.desc": "面向机器人感知、决策、运动与控制问题的算法基础与系统实现。",
+                "interest.embodied.title": "具身智能",
+                "interest.embodied.desc": "连接模型、环境与物理智能体的学习和推理方法。",
+                "interest.autonomy.title": "自主系统",
+                "interest.autonomy.desc": "动态真实场景中的稳健任务执行、调度与自适应能力。",
+                "interest.simulation.title": "仿真与评测",
+                "interest.simulation.desc": "可复现实验管线、基准测试、自动化评测与失败案例分析。",
+                "interest.software.title": "科研软件",
+                "interest.software.desc": "让实验更可追踪、可复现、可复用的工具链与系统平台。",
+                "interest.agents.title": "科研 Agent",
+                "interest.agents.desc": "用于文献分析、代码辅助、实验流程和知识组织的 Agent 系统。",
+                "activity.title": "贡献热力图",
+                "activity.profile": "查看 GitHub 主页",
+                "project.drone.title": "巡查-处置闭环中的无人机-地面车协同系统设计与实现",
+                "project.drone.role": "第一成员 / 核心开发",
+                "project.drone.program": "国家级大学生创新训练计划，2025.05 - 2027.05。",
+                "project.drone.desc": "设计“空地一体化”智能协同系统，用于解决单一视角巡查的局限。提出 <strong>强化学习增强的 RMF</strong> 决策模型，动态优化任务分配与路径协商，缓解高密度动态环境中的死锁问题。开发基于 <strong>RGB-D 的高精度空间映射算法</strong>，将无人机侦察数据转换为地面车导航目标，实现跨设备精确定位。系统通过 Gazebo 仿真与实体原型验证。",
+                "project.ppo.title": "基于 PPO 的空地协同多机器人动态调度优化研究",
+                "project.ppo.role": "第二作者",
+                "project.ppo.program": "已被 RPIC 2026 机器人感知与智能控制国际学术会议录用，IEEE 会议，EI 检索。2025.09 - 2026.01。",
+                "project.ppo.desc": "将多机器人动态调度问题建模为 MDP，设计包含机器人位置、任务状态、队列长度与负载信息的状态空间，并基于 PPO 训练智能调度器。方法中引入锚点引导的动作剪枝、任务队列重排序和兼顾完成时间与负载均衡的非线性奖励函数。基于 Gazebo 的仿真实验显示，相比贪心策略，总任务完成时间缩短 29.52%，队列长度方差降低 67.16%。",
+                "project.imitation.title": "机器人模仿学习训练样本动态重加权实验",
+                "project.imitation.role": "近期研究工作",
+                "project.imitation.program": "基于 RoboTwin 平台，2026.03 - 至今。",
+                "project.imitation.desc": "面向机器人模仿学习中长尾轨迹片段学习不足的问题，探索基于训练反馈的样本重加权方法，在不修改策略网络结构的前提下提升困难阶段学习效果。基于 RoboTwin 改造 ACT 与 Diffusion Policy 的训练、采样和评测流程，设计静态加权与动态重加权方案，并开发多阶段 checkpoint 自动评测和结果汇总脚本。",
+                "project.testing.title": "面向异构多智能体系统的进化计算对抗测试框架",
+                "project.testing.role": "项目负责人",
+                "project.testing.program": "独立研究，2024.12 - 至今。",
+                "project.testing.desc": "设计“生成-评估”闭环对抗测试框架，用于评估 PIBT、LaCAM 等 MAPF 算法在极端拥堵和异构场景下的鲁棒性。复现 <strong>自适应随机测试（ART）</strong> 算法，并分析其在稀疏地图中的局限。进一步提出基于 <strong>遗传算法</strong> 的异构场景生成机制，通过多目标适应度函数演化出会诱发协同失败的陷阱地形。",
+                "project.structura.title": "StructuraScholar 学术论文智能分析 Agent 系统",
+                "project.structura.role": "全栈开发",
+                "project.structura.program": "面向文献分析的科研辅助工作台，2026.06。",
+                "project.structura.desc": "构建从 PDF 导入、结构化解析、论文核心问题/方法/数据集/指标/证据抽取到跨文献报告生成的科研辅助工作台。负责项目、论文、章节、抽取结果、证据、向量文档、知识图谱和研究记忆等数据模型，开发解析任务、证据溯源、混合检索问答、Vision/OCR 分析、知识图谱、引用网络扩展和 Markdown 报告生成服务，并补充上传解析、RAG、KG、引用导入等测试。",
+                "project.javaagent.title": "Java 程序设计智能学习 Agent 系统",
+                "project.javaagent.role": "全栈开发 / Agent 编排",
+                "project.javaagent.program": "软件杯项目，2026.06。",
+                "project.javaagent.desc": "开发面向 Java 程序设计课程的智能学习平台，支持学生画像诊断、知识点掌握度评估、学习路径规划、资源推荐、课程问答、练习测评和代码判题。参与学习事件、推荐、诊断、练习评估、多 Agent 答疑生成、trace 记录与回答质量审查等后端服务，并联调仪表盘、课程知识库、学习路径、练习测评、代码编辑与历史分析页面。",
+                "education.grad.school": "苏州大学未来科学与工程学院",
+                "education.grad.detail": "保研攻读硕士研究生<br>导师：<strong>刘司澳</strong>",
+                "education.school": "苏州大学",
+                "education.detail": "计算机科学与技术学院 · 软件工程本科在读<br>2023.09 - 至今<br><strong>GPA：</strong>3.8 / 4.0 · <strong>专业排名：</strong>9 / 135<br><strong>CET-4：</strong>567 · <strong>CET-6：</strong>471<br>代表课程：机器学习（100）、数据结构（96）、软件测试与质量保证（96）、计算机网络与通信（95）",
+                "honors.scholarship.one": "<strong>苏州大学正雄智慧捐赠奖学金</strong>，专业前 1%",
+                "honors.scholarship.two": "<strong>苏州大学创新创业一等奖学金</strong>，专业前 3%",
+                "honors.scholarship.three": "<strong>苏州大学学习优秀二等奖学金</strong>，两次获得",
+                "honors.scholarship.four": "<strong>苏州大学社会工作专项奖学金</strong>，两次获得",
+                "honors.campus": "<strong>校内荣誉：</strong>苏州大学优秀学生干部、优秀共青团干部、暑期社会实践先进个人、优秀学生骨干",
+                "honors.competition.one": "<strong>国家三等奖</strong>，2026 年团体程序设计天梯赛个人奖",
+                "honors.competition.two": "<strong>M 奖</strong>，美国大学生数学建模竞赛",
+                "honors.competition.three": "<strong>江苏省一等奖</strong>，第十七届蓝桥杯 Python A 组",
+                "honors.competition.four": "<strong>江苏省二等奖</strong>，2025 年全国大学生软件测试大赛",
+                "honors.competition.five": "<strong>江苏省三等奖</strong>，2025 年睿抗机器人开发者大赛",
+                "honors.competition.six": "<strong>CSP 软件能力认证：</strong>260 分",
+                "honors.output.one": "<strong>软件著作权：</strong>基于多智能体协同的果园自主调度管控平台，第一作者，登记号 2026SR0211431",
+                "skills.programming": "<strong>编程语言：</strong>Python, C/C++, Java, SQL, LaTeX, Bash",
+                "skills.frameworks": "<strong>框架与工具：</strong>Linux, Git, Docker, ROS2, Spring Boot",
+                "skills.research": "<strong>研究方向：</strong>机器人算法、具身智能、自主系统、机器人学习、仿真与评测",
+                "skills.engineering": "<strong>工程能力：</strong>ROS2 / RMF, Gazebo, FastAPI, React, Vue, RAG, 知识图谱, Agent 编排",
+                "tag.rmf": "强化学习增强 RMF",
+                "tag.ec": "进化计算",
+                "tag.adversarial": "对抗测试",
+                "tag.kg": "知识图谱",
+                "tag.multiagent": "多 Agent",
+                "tag.education": "教育 AI"
+            }
+        };
+
+        const languageButtons = document.querySelectorAll("[data-lang-button]");
+        const navLinks = document.querySelectorAll("[data-nav-link]");
+
+        function getInitialLanguage() {
+            const savedLanguage = localStorage.getItem("homepage-language");
+            if (savedLanguage && translations[savedLanguage]) {
+                return savedLanguage;
+            }
+
+            return navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+        }
+
+        function setLanguage(language) {
+            const dictionary = translations[language];
+            if (!dictionary) return;
+
+            document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+            document.title = dictionary["meta.title"];
+
+            document.querySelectorAll("[data-i18n]").forEach((element) => {
+                const key = element.dataset.i18n;
+                if (dictionary[key]) {
+                    element.textContent = dictionary[key];
+                }
+            });
+
+            document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+                const key = element.dataset.i18nHtml;
+                if (dictionary[key]) {
+                    element.innerHTML = dictionary[key];
+                }
+            });
+
+            languageButtons.forEach((button) => {
+                const isActive = button.dataset.langButton === language;
+                button.classList.toggle("is-active", isActive);
+                button.setAttribute("aria-pressed", String(isActive));
+            });
+
+            localStorage.setItem("homepage-language", language);
+        }
+
+        languageButtons.forEach((button) => {
+            button.addEventListener("click", () => setLanguage(button.dataset.langButton));
+        });
+
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.forEach((item) => item.classList.remove("active"));
+                link.classList.add("active");
+            });
+        });
+
+        setLanguage(getInitialLanguage());
+    </script>
 </body>
 
 </html>
